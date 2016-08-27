@@ -18,7 +18,9 @@ Fully integrates Webpack with SystemJS, export systemjs libraries, expose module
 
 - Ignore modules that will be loadable on runtime.
 
-- TypeScript 2.0 and Webpack 2.1 Support!
+- [TypeScript 2.0](https://blogs.msdn.microsoft.com/typescript/2016/07/11/announcing-typescript-2-0-beta/) and [Webpack 2.1](https://github.com/webpack/webpack) Support!
+
+- Unit Tests powered by [Ava](https://github.com/avajs/ava).
 
 ## Quick Start
 
@@ -66,20 +68,23 @@ interface Configuration {
   // Any external modules that will not be bundled by Webpack (defaults to none.)
   externals?: (string | RegExp)[],
 
-  // Any node_modules you wish to expose (defaults to all of them)
+  // Any node_modules you wish to expose (defaults to all of them.)
   public?: (string | RegExp)[],
 
-  // Your chunk aliasing scheme (defaults to the entry name)
-  alias?: (chunk: string) => string
+  // Specify which chunks you want to wrap with SystemJS.register (defaults to none.)
+  register: {
+    name : string,
+    alias: (chunk: string) => string
+  },
 
-  // Bundles SystemJS as a global dependency to the chunk of your choosing. (defaults to no chunk.)
+  // Bundles SystemJS as a global dependency to the chunk of your choosing. (defaults to none.)
   bundleSystemJS?: string
 }
 ```
 
 ## Examples
 
-Check out the [/example](/example) if you're still not sure what to do. ;)
+Check out the [example project](/example) if you're still not sure what to do. ;)
 
 [website-img]: docs/brand/cover.png
 [website-url]: https://alain.xyz

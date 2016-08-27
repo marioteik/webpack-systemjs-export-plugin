@@ -36,5 +36,8 @@
   },
   "typescript": {
     "definition": "index.d.ts"
+  },
+  "dependencies": {
+    "systemjs": "^0.19.37"
   }
 }
