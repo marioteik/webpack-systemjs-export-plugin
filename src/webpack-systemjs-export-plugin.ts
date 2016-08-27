@@ -15,12 +15,51 @@ export class WebpackSystemJSExportPlugin {
 		this.config = this.validateTypes(config);
 	}
 
-	apply(compiler) {
-		console.log(compiler);
+	apply = (compiler: WebpackCompiler) => {
+
+		this.clearExternals(this.config.externals, compiler);
+
+		this.exposePublicModules(this.config.public, compiler);
+
+		this.wrapRegisteredChunks(this.config.register, compiler);
+
+		this.bundleSystemJS(this.config.bundleSystemJS, compiler);
+
 	}
 
-	// Validate the Types of a given config at runtime.
-	validateTypes(config) {
+  /**
+	 * Clear the inner part of modules included in the compiler.externals, 
+	 * replace with SystemJS.import('three').then(res => exports = res)
+	*/
+	clearExternals = (externals: (string | RegExp)[] = [], compiler: WebpackCompiler) => {
+
+	}
+
+  /** 
+	 * Expose any public modules to SystemJS. 
+	 */
+	exposePublicModules = (publicModules: (string | RegExp)[] = [], compiler: WebpackCompiler) => {
+
+	}
+
+	/**
+	 *  Wrap registered chunks with `SystemJS.register`
+	 */
+	wrapRegisteredChunks = (registry: { name: string, alias: (chunk: string) => string }[] = [], compiler: WebpackCompiler) => {
+
+	}
+
+	/**
+	 * Bundle SystemJS within a given Chunk as a global dependency.
+	 */
+	bundleSystemJS = (chunk: string = '', compiler: WebpackCompiler) => {
+
+	}
+
+	/**
+	 * Validate the Types of a given config at runtime.
+	 */
+	validateTypes = (config) => {
 
 		let err = (e) => { throw new Error('WebpackSystemJSExport Error: ' + e) };
 
@@ -90,3 +129,5 @@ export interface Configuration {
 }
 
 export default WebpackSystemJSExportPlugin;
+
+module.exports = WebpackSystemJSExportPlugin;

@@ -8,7 +8,7 @@ npm i webpack-systemjs-export-plugin --save
 
 > Note: **Under Construction!** A Fork of @joeldenning's [Webpack System Register Plugin](https://www.npmjs.com/package/webpack-system-register) and @guybedford's [SystemJS Webpack Plugin](https://github.com/guybedford/systemjs-webpack-plugin).
 
-Fully integrates Webpack with SystemJS, export systemjs libraries, expose modules, dynamically load chunks with systemjs, you name it, this plugin can do it!
+Fully integrates Webpack with SystemJS, export systemjs libraries, expose modules, dynamically load chunks with systemjs, or load modules in your webpack build from SystemJS.
 
 ## Features
 
@@ -21,6 +21,8 @@ Fully integrates Webpack with SystemJS, export systemjs libraries, expose module
 - [TypeScript 2.0](https://blogs.msdn.microsoft.com/typescript/2016/07/11/announcing-typescript-2-0-beta/) and [Webpack 2.1](https://github.com/webpack/webpack) Support!
 
 - Unit Tests powered by [Ava](https://github.com/avajs/ava).
+
+- Load from SystemJS directly from your build.
 
 ## Quick Start
 
@@ -87,6 +89,10 @@ interface Configuration {
 ## Examples
 
 Check out the [example project](/example) if you're still not sure what to do. ;)
+
+### Roadmap
+
+* [ ] release webpack compiler definitions to DT.
 
 [website-img]: docs/brand/cover.png
 [website-url]: https://alain.xyz

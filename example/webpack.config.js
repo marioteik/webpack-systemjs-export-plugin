@@ -5,11 +5,11 @@ const WebpackSystemJSExportPlugin = require('../webpack-systemjs-export-plugin')
 let config = {
   context: __dirname,
   entry: {
-    main: 'main',
+    main: './main',
     vendor: [
       'lodash'
     ],
-    dynamic: 'dynamic'
+    dynamic: './dynamic'
   },
   output: {
     path: path.join(__dirname, 'dist'),

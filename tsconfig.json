@@ -9,7 +9,7 @@
       "es2017"
     ],
     "module": "commonjs",
-    "declaration": true,
+    "declaration": false,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "removeComments": false,

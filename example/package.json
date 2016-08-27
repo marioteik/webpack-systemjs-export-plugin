@@ -9,5 +9,8 @@
   "dependencies": {
     "@types/three": "0.0.21",
     "lodash": "^4.15.0"
+  },
+  "scripts": {
+    "build": "webpack"
   }
 }
