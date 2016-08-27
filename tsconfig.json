@@ -12,7 +12,7 @@
     "declaration": true,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "removeComments": true,
+    "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noEmitHelpers": false,

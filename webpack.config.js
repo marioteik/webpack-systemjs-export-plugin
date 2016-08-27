@@ -6,11 +6,11 @@ let isProduction = env && env.match(/production/);
 
 let config = {
   context: path.join(__dirname, 'src'),
-  entry: './webpack-systemjs-plugin',
+  entry: './webpack-systemjs-export-plugin',
   output: {
     path: __dirname,
-    filename: '[name].js',
-    library: "[name]",
+    filename: 'webpack-systemjs-export-plugin.js',
+    library: "webpack-systemjs-export-plugin",
     libraryTarget: "umd"
   },
   resolve: {

@@ -6,7 +6,7 @@
 npm i webpack-systemjs-export-plugin --save
 ```
 
-> A Fork of @joeldenning's [Webpack System Register Plugin](https://www.npmjs.com/package/webpack-system-register) and @guybedford's [SystemJS Webpack Plugin](https://github.com/guybedford/systemjs-webpack-plugin).
+> Note: **Under Construction!** A Fork of @joeldenning's [Webpack System Register Plugin](https://www.npmjs.com/package/webpack-system-register) and @guybedford's [SystemJS Webpack Plugin](https://github.com/guybedford/systemjs-webpack-plugin).
 
 Fully integrates Webpack with SystemJS, export systemjs libraries, expose modules, dynamically load chunks with systemjs, you name it, this plugin can do it!
 
