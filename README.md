@@ -72,10 +72,10 @@ interface Configuration {
   public?: (string | RegExp)[],
 
   // Specify which chunks you want to wrap with SystemJS.register (defaults to none.)
-  register: {
+  register?: {
     name : string,
     alias: (chunk: string) => string
-  },
+  }[],
 
   // Bundles SystemJS as a global dependency to the chunk of your choosing. (defaults to none.)
   bundleSystemJS?: string

@@ -5,7 +5,7 @@
   "main": "webpack-systemjs-export-plugin.js",
   "scripts": {
     "build": "set NODE_ENV=production & webpack",
-    "test": "ava"
+    "test": "tsc test/webpack-systemjs-export-plugin.spec.ts & ava"
   },
   "repository": {
     "type": "git",
