@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "main.js",
   "license": "ISC",
+  "devDependencies": {
+    "webpack": "^2.1.0-beta.21"
+  },
   "dependencies": {
+    "@types/three": "0.0.21",
     "lodash": "^4.15.0"
   }
 }

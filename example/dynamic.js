@@ -1,1 +1,3 @@
-module.exports = () => console.log('This happened dynamically!');
+module.exports = {
+  itWorks: () => console.log('eurika!')
+};

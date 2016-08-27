@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Webpack SystemJS Example</title>
-	</head>
-	<body>
 
-	</body>
+<head>
+	<meta charset="utf-8">
+	<title>Webpack SystemJS Example</title>
+</head>
+
+<body>
+	<h1>Check the Console!</h1>
+	<script src="/dist/vendor.min.js"></script>
+	<script src="/dist/main.min.js"></script>
+	<script>
+		setTimeout(() => {
+			// You're able to load Chunks like so:
+			SystemJS.import('dist/dynamic.min.js')
+				.then(res => console.log(res));
+
+			// You can also load from the vendor chunk's node_modules:
+			SystemJS.import('lodash')
+				.then(res => console.log(res));
+		}, 3000);
+	</script>
+</body>
+
 </html>

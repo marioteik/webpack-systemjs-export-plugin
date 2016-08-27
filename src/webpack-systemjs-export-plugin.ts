@@ -16,7 +16,7 @@ export class WebpackSystemJSExportPlugin {
 	}
 
 	apply(compiler) {
-
+		console.log(compiler);
 	}
 
 	// Validate the Types of a given config at runtime.

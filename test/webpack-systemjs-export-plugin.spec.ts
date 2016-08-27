@@ -27,3 +27,6 @@ test('Able to load with SystemJS a chunk built with the plugin', async t => {
   t.fail();
 });
 
+test('All features work when minification is on', t => {
+  t.fail();
+});

@@ -59,6 +59,8 @@ let config = {
 
 ```
 
+In this example, the module `'three'` will be bundled as `SystemJS.import('three').then(res => exports = res)`.
+
 ## Configuration Options
 
 To configure the plugin pass an object of the following type to the constructor:
