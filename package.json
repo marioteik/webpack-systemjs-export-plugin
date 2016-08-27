@@ -1,0 +1,40 @@
+{
+  "name": "webpack-systemjs-export-plugin",
+  "version": "2.1.0-beta.21",
+  "description": "Fully integrates Webpack with SystemJS, export systemjs libraries, expose modules, dynamically load chunks with systemjs, etc.",
+  "main": "webpack-systemjs-export-plugin.js",
+  "scripts": {
+    "build": "set NODE_ENV=production & webpack",
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alaingalvan/webpack-systemjs-export-plugin.git"
+  },
+  "keywords": [
+    "systemjs",
+    "system",
+    "esm",
+    "modules",
+    "webpack",
+    "plugin",
+    "export"
+  ],
+  "author": "Alain Galvan",
+  "license": "apache",
+  "bugs": {
+    "url": "https://github.com/alaingalvan/webpack-systemjs-export-plugin/issues"
+  },
+  "homepage": "https://alain.xyz",
+  "devDependencies": {
+    "@types/node": "^6.0.38",
+    "@types/webpack": "^1.12.33",
+    "ava": "^0.16.0",
+    "ts-loader": "^0.8.2",
+    "typescript": "^2.0.0",
+    "webpack": "^2.1.0-beta.21"
+  },
+  "typescript": {
+    "definition": "index.d.ts"
+  }
+}

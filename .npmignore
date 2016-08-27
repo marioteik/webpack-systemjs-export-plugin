@@ -1,0 +1,12 @@
+examples
+test
+src
+tsconfig.json
+.travis.yml
+.gitignore
+*.js
+*.ts
+*.tsx
+
+!webpack-systemjs-export-plugin.js
+!webpack-systemjs-export-plugin.d.ts
