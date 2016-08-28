@@ -46,7 +46,10 @@ let config = {
       public: [
         'lodash',
       ],
-      alias: (chunk) => `myapp/${chunk}`,
+      register: [{
+        name: 'dynamic',
+        alias: (chunk) => `myapp/${chunk}`
+      }],
       bundleSystemJS: 'vendor'
     })
   ]

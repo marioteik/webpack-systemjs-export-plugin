@@ -31,8 +31,12 @@ let config = {
   module: {
     loaders: [{
       test: /\.tsx?$/,
-      loader: 'ts-loader'
+      loader: 'ts-loader',
+      exclude: /node_modules/
     }]
+  },
+  ts: {
+    transpileOnly: true
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({

@@ -5,25 +5,60 @@ import * as webpack from 'webpack';
 
 import WebpackSystemJSExportPlugin from '../src/webpack-systemjs-export-plugin';
 
-let config = {
-  plugins: [
-    new WebpackSystemJSExportPlugin({})
-  ]
-};
+var config = require('../example/webpack.config.js');
 
-test('External modules not found in built chunks', async t => {
+test('Able to load with SystemJS a chunk built with the plugin', t => {
+  var c = Object.assign({}, config,
+    {
+      plugins: [
+        new WebpackSystemJSExportPlugin({
+          bundleSystemJS: 'vendor'
+        })
+      ]
+    });
+
+  //webpack(c, (err, stats) => {
+
+  //});
+
   t.fail();
 });
 
-test('Public `node_modules` accessable to SystemJS', async t => {
+test('External modules not found in built chunks', t => {
+  var c = Object.assign({}, config,
+    {
+      plugins: [
+        new WebpackSystemJSExportPlugin({
+          externals: ['three']
+        })]
+    });
   t.fail();
 });
 
-test('Custom chunk aliases accessable by SystemJS', async t => {
+test('Public `node_modules` accessable to SystemJS', t => {
+  var c = Object.assign({}, config,
+    {
+      plugins: [
+        new WebpackSystemJSExportPlugin({
+          public: ['lodash']
+        })
+      ]
+    });
   t.fail();
 });
 
-test('Able to load with SystemJS a chunk built with the plugin', async t => {
+test('Custom chunk aliases accessable by SystemJS', t => {
+  var c = Object.assign({}, config,
+    {
+      plugins: [
+        new WebpackSystemJSExportPlugin({
+          register: [{
+            name: 'dynamic',
+            alias: (chunk) => `myapp/${chunk}`
+          }]
+        })
+      ]
+    });
   t.fail();
 });
 
