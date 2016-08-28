@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import * as appRoot from 'app-root-path';
 import { ConcatSource } from 'webpack-sources';
 
 /**
@@ -73,14 +74,14 @@ export class WebpackSystemJSExportPlugin {
 					}
 
 					let pathToSystemJS = path.join(
-						__dirname,
+						appRoot.path,
 						'node_modules',
 						'systemjs',
 						'dist',
 						`system${production}.js`);
 
 					let systemjsString = fs.readFileSync(pathToSystemJS).toString();
-					
+
 					compilation.assets[file] = new ConcatSource(compilation.assets[file], systemjsString);
 				});
 				callback();
@@ -93,7 +94,7 @@ export class WebpackSystemJSExportPlugin {
 	 * Validate the Types of the constructor config at runtime.
 	 */
 	validateTypes = (config) => {
-		
+
 		let err = (e) => { throw new Error('WebpackSystemJSExport Error: ' + e) };
 
 		let checkIfArrayOfType = (obj, eTypeCheck: (t) => boolean, varname: string, typename: string) => {
@@ -137,17 +138,18 @@ export class WebpackSystemJSExportPlugin {
 		);
 
 		// bundleSystemJS
-		if (typeof config.bundleSystemJS !== 'string')
-			err('configuration `bundleSystemJS` must be of type string');
+		if (typeof config.bundleSystemJS !== 'undefined')
+			if (typeof config.bundleSystemJS !== 'string')
+				err('configuration `bundleSystemJS` must be of type string');
 
 		return config;
 	}
 }
 
 export interface WebpackCompiler {
-  outputPath: string,
-  options: any,
-  plugin: (p:string, cb: (...a) => void) => void,
+	outputPath: string,
+	options: any,
+	plugin: (p: string, cb: (...a) => void) => void,
 
 }
 
