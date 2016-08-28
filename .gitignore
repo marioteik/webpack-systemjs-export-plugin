@@ -20,7 +20,7 @@ build/Release
 *.d.ts
 src/**/*.js
 **/test/*.js
-
+dist
 
 # Editors
 .vscode

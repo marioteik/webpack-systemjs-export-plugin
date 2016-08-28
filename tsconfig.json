@@ -9,7 +9,7 @@
       "es2017"
     ],
     "module": "commonjs",
-    "declaration": true,
+    "declaration": false,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "removeComments": false,
@@ -17,7 +17,7 @@
     "experimentalDecorators": true,
     "noEmitHelpers": false,
     "sourceMap": false,
-    "strictNullChecks": true
+    "strictNullChecks": false
   },
   "compileOnSave": false,
   "buildOnSave": false
