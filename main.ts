@@ -1,0 +1,1 @@
+export * from './src/webpack-systemjs-export-plugin';

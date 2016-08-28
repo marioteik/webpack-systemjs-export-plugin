@@ -17,10 +17,9 @@ pids
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
-
+*.d.ts
 src/**/*.js
-test/**/*.js
-example/**/*.js
+
 
 # Editors
 .vscode

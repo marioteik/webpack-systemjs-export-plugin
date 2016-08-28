@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es3",
+    "target": "es2015",
     "lib": [
       "dom",
       "es5",
@@ -9,6 +9,7 @@
       "es2017"
     ],
     "module": "commonjs",
+    "outDir": "dist",
     "declaration": true,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,

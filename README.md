@@ -88,7 +88,7 @@ interface Configuration {
 
 ## Examples
 
-Check out the [example project](/example) if you're still not sure what to do. ;)
+Check out the [example project in the test suite](/test) if you're still not sure what to do. ;)
 
 ### Roadmap
 

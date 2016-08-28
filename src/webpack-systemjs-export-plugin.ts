@@ -72,8 +72,6 @@ export class WebpackSystemJSExportPlugin {
 							production = '-csp-production';
 					}
 
-					console.log(__dirname);
-
 					let pathToSystemJS = path.join(
 						__dirname,
 						'node_modules',
@@ -92,7 +90,7 @@ export class WebpackSystemJSExportPlugin {
 	}
 
 	/**
-	 * Validate the Types of a given config at runtime.
+	 * Validate the Types of the constructor config at runtime.
 	 */
 	validateTypes = (config) => {
 
@@ -143,6 +141,13 @@ export class WebpackSystemJSExportPlugin {
 
 		return config;
 	}
+}
+
+export interface WebpackCompiler {
+  outputPath: string,
+  options: any,
+  plugin: (p:string, cb: (...a) => void) => void,
+
 }
 
 export interface Configuration {
