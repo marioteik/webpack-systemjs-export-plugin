@@ -5,7 +5,7 @@
   "main": "webpack-systemjs-export-plugin.js",
   "scripts": {
     "build": "set NODE_ENV=production & webpack",
-    "test": "tsc test/webpack-systemjs-export-plugin.spec.ts & ava"
+    "test": "tsc test/webpack-systemjs-export-plugin.spec.ts -- & ava"
   },
   "repository": {
     "type": "git",
@@ -38,9 +38,9 @@
     "webpack-sources": "^0.1.2"
   },
   "typescript": {
-    "definition": "index.d.ts"
+    "definition": "webpack-systemjs-export-plugin.d.ts"
   },
-  "dependencies": {
-    "systemjs": "^0.19.37"
+  "peerDependencies": {
+    "systemjs": "^0.19.x"
   }
 }

@@ -17,8 +17,8 @@ let config = {
   externals: [nodeExternals()],
   output: {
     path: __dirname,
-    filename: 'webpack-systemjs-export-plugin.js',
-    library: "webpack-systemjs-export-plugin",
+    filename: '[name].js',
+    library: "[name]",
     libraryTarget: "umd"
   },
   resolve: {

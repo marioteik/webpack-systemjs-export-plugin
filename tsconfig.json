@@ -9,14 +9,14 @@
       "es2017"
     ],
     "module": "commonjs",
-    "declaration": false,
+    "declaration": true,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noEmitHelpers": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "strictNullChecks": true
   },
   "compileOnSave": false,
