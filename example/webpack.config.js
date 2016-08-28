@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
-const WebpackSystemJSExportPlugin = require('../webpack-systemjs-export-plugin');
+const WebpackSystemJSExportPlugin = require('../webpack-systemjs-export-plugin')['default'];
+
+process.env['NODE_ENV'] = 'production';
 
 let config = {
   context: __dirname,

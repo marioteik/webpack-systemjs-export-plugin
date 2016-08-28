@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
-let out = _.assign({ 'a': 1 }, { 'b': 2 }, { 'c': 3 });
+let o = _.assign({ 'a': 1 }, { 'b': 2 }, { 'c': 3 });
 
-console.log(out);
+console.log(o);
 
-module.exports = out;
+module.exports = o;

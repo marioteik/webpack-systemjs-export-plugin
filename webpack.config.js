@@ -1,12 +1,20 @@
 const webpack = require('webpack');
 const path = require('path');
 
+const nodeExternals = require('webpack-node-externals');
+
 let env = process.env['NODE_ENV'];
 let isProduction = env && env.match(/production/);
 
 let config = {
   context: path.join(__dirname, 'src'),
   entry: './webpack-systemjs-export-plugin',
+  target: "node",
+  node: {
+    __dirname: false,
+    process: false
+  },
+  externals: [nodeExternals()],
   output: {
     path: __dirname,
     filename: 'webpack-systemjs-export-plugin.js',
@@ -44,12 +52,8 @@ if (isProduction) {
     {
       plugins: [
         ...config.plugins,
-        new webpack.optimize.UglifyJsPlugin(),
-        new webpack.DefinePlugin({
-          'process.env': {
-            'NODE_ENV': JSON.stringify('production')
-          }
-        })]
+        new webpack.optimize.UglifyJsPlugin()
+        ]
     });
 
 }

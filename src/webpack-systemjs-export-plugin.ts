@@ -1,7 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { ConcatSource } from 'webpack-sources';
-import { camelcase as toCamelCase } from 'varname';
 
 /**
  * Fully integrate Webpack with SystemJS, export systemjs libraries, 
@@ -52,8 +51,44 @@ export class WebpackSystemJSExportPlugin {
 	/**
 	 * Bundle SystemJS within a given Chunk as a global dependency.
 	 */
-	bundleSystemJS = (chunk: string = '', compiler: WebpackCompiler) => {
+	bundleSystemJS = (chunkName: string = '', compiler: WebpackCompiler) => {
+		if (!chunkName) return;
 
+		compiler.plugin('compilation', (compilation) => {
+
+			compilation.plugin("optimize-chunk-assets", (chunks, callback) => {
+				chunks.forEach(chunk => {
+
+					if (!(chunk.isInitial() && (chunk.name === chunkName))) {
+						return;
+					}
+
+					let file = chunk.files[0];
+					let production = '.src';
+
+					// Use the production version of system.js if you're in production mode.
+					if (process.env['NODE_ENV']) {
+						if (process.env['NODE_ENV'].match(/production/))
+							production = '-csp-production';
+					}
+
+					console.log(__dirname);
+
+					let pathToSystemJS = path.join(
+						__dirname,
+						'node_modules',
+						'systemjs',
+						'dist',
+						`system${production}.js`);
+
+					let systemjsString = fs.readFileSync(pathToSystemJS).toString();
+					
+					compilation.assets[file] = new ConcatSource(compilation.assets[file], systemjsString);
+				});
+				callback();
+			});
+
+		});
 	}
 
 	/**
@@ -129,5 +164,3 @@ export interface Configuration {
 }
 
 export default WebpackSystemJSExportPlugin;
-
-module.exports = WebpackSystemJSExportPlugin;
