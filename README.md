@@ -92,7 +92,11 @@ Check out the [example project](/example) if you're still not sure what to do. ;
 
 ### Roadmap
 
-* [ ] release webpack compiler definitions to DT.
+* [x] Support bundling SystemJS.
+* [ ] Support for specifying external systemjs modules.
+* [ ] Support registering chunks.
+* [ ] Support exposing modules.
+* [ ] Release webpack compiler definitions to DT.
 
 [website-img]: docs/brand/cover.png
 [website-url]: https://alain.xyz
