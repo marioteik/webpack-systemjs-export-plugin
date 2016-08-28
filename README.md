@@ -96,13 +96,12 @@ Check out the [example project in the test suite](/test) if you're still not sur
 - [ ] Support for specifying external systemjs modules.
 - [ ] Support registering chunks.
 - [ ] Support exposing modules.
-- [ ] Release webpack compiler definitions to DT.
 
 [website-img]: docs/brand/cover.png
 [website-url]: https://alain.xyz
 [release-img]: https://img.shields.io/badge/release-2.1.0-4dbfcc.svg?style=flat-square
 [license-img]: http://img.shields.io/:license-apache-blue.svg?style=flat-square
-[license-url]: https://opensource.org/licenses/apache
+[license-url]: https://opensource.org/licenses/Apache-2.0
 [david-url]: https://david-dm.org/alaingalvan/webpack-systemjs-export-plugin
 [david-img]: https://david-dm.org/alaingalvan/webpack-systemjs-export-plugin.svg?style=flat-square
 [david-dev-url]: https://david-dm.org/alaingalvan/webpack-systemjs-export-plugin#info=devDependencies
