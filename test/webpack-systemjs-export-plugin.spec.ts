@@ -1,8 +1,8 @@
 import test from 'ava';
-
 import * as fs from 'fs';
 import * as path from 'path';
 import * as webpack from 'webpack';
+import * as SystemJS from 'systemjs';
 
 import WebpackSystemJSExportPlugin from '../src/webpack-systemjs-export-plugin';
 
@@ -18,21 +18,21 @@ test('SystemJS is bundled with the correct chunk', async t => {
   });
 
   let wp = await new Promise<string>((res, rej) => {
-    webpack(c, (err, stats) => {  
+    webpack(c, (err, stats) => {
       if (err)
         rej(err.message);
     })
       .run((err, stats) => {
         if (err)
           t.fail(err.message);
-          let vendorBuildPath = path.join(config.output.path, 'vendor.min.js');
-          let vendorHasSystem = fs.readFileSync(vendorBuildPath).toString().includes('SystemJS');
-          if (vendorHasSystem)
-            res('Vendor has SystemJS bundled!');
+        let vendorBuildPath = path.join(config.output.path, 'vendor.min.js');
+        let vendorHasSystem = fs.readFileSync(vendorBuildPath).toString().includes('SystemJS');
+        if (vendorHasSystem)
+          res('Vendor has SystemJS bundled!');
       });
   })
-  .then((res) => t.pass(res))
-  .catch((err) => t.fail(err));
+    .then((res) => t.pass(res))
+    .catch((err) => t.fail(err));
 });
 
 test('External modules not found in built chunks', t => {
@@ -46,7 +46,7 @@ test('External modules not found in built chunks', t => {
   t.fail();
 });
 
-test('Public `node_modules` accessable to SystemJS', t => {
+test('Public `node_modules` accessable to SystemJS', async t => {
   var c = Object.assign({}, config,
     {
       plugins: [
@@ -55,7 +55,26 @@ test('Public `node_modules` accessable to SystemJS', t => {
         })
       ]
     });
-  t.fail();
+
+  let wp = await new Promise<string>((res, rej) => {
+    webpack(c, (err, stats) => {
+      if (err)
+        rej(err.message);
+    })
+      .run((err, stats) => {
+        if (err)
+          t.fail(err.message);
+
+        // Run built code and see if lodash is accessable.
+        let vendorBuildPath = path.join(config.output.path, 'vendor.min.js');
+        require(vendorBuildPath)
+        SystemJS.import('lodash')
+          .then(_ => res('Bundled modules are accessable to SystemJS!'))
+          .catch(err => rej(err.message))
+      });
+  })
+    .then((res) => t.pass(res))
+    .catch((err) => t.fail(err));
 });
 
 test('Custom chunk aliases accessable by SystemJS', t => {
@@ -70,9 +89,5 @@ test('Custom chunk aliases accessable by SystemJS', t => {
         })
       ]
     });
-  t.fail();
-});
-
-test('All features work when minification is on', t => {
   t.fail();
 });

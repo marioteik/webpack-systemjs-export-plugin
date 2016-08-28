@@ -93,7 +93,7 @@ Check out the [example project in the test suite](/test) if you're still not sur
 ### Roadmap
 
 - [x] Support bundling SystemJS.
-- [ ] Support for specifying external systemjs modules.
+- [x] Support for specifying external systemjs modules. (we're kinda there...)
 - [ ] Support registering chunks.
 - [ ] Support exposing modules.
 

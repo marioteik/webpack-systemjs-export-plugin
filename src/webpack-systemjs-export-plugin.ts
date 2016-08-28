@@ -3,6 +3,9 @@ import * as fs from 'fs';
 import * as appRoot from 'app-root-path';
 import { ConcatSource } from 'webpack-sources';
 
+import SystemJSRegisterPublicModules from './public';
+import WebpackSystemRegister from './register';
+
 /**
  * Fully integrate Webpack with SystemJS, export systemjs libraries, 
  * expose modules, dynamically load chunks with systemjs, etc.
@@ -10,9 +13,18 @@ import { ConcatSource } from 'webpack-sources';
 export class WebpackSystemJSExportPlugin {
 
 	private config: Configuration;
+	private publicPlugin: SystemJSRegisterPublicModules;
+	private registerPlugin: WebpackSystemRegister;
 
 	constructor(config: Configuration = {}) {
 		this.config = this.validateTypes(config);
+
+		//@TODO - extract logic from his plugin to simplified module.
+		this.publicPlugin = new SystemJSRegisterPublicModules({});
+
+		this.registerPlugin = new WebpackSystemRegister({
+
+		})
 	}
 
 	apply = (compiler: WebpackCompiler) => {
@@ -39,14 +51,14 @@ export class WebpackSystemJSExportPlugin {
 	 * Expose any public modules to SystemJS. 
 	 */
 	exposePublicModules = (publicModules: (string | RegExp)[] = [], compiler: WebpackCompiler) => {
-
+		this.publicPlugin.apply(compiler);
 	}
 
 	/**
 	 *  Wrap registered chunks with `SystemJS.register`
 	 */
 	wrapRegisteredChunks = (registry: { name: string, alias: (chunk: string) => string }[] = [], compiler: WebpackCompiler) => {
-
+		//this.registerPlugin.apply(compiler);
 	}
 
 	/**
@@ -95,7 +107,7 @@ export class WebpackSystemJSExportPlugin {
 	 */
 	validateTypes = (config) => {
 
-		let err = (e) => { throw new Error('WebpackSystemJSExport Error: ' + e) };
+		let err = (e) => { throw new TypeError('WebpackSystemJSExport: ' + e) };
 
 		let checkIfArrayOfType = (obj, eTypeCheck: (t) => boolean, varname: string, typename: string) => {
 			if (typeof obj !== 'undefined') {
