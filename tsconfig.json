@@ -9,7 +9,6 @@
       "es2017"
     ],
     "module": "commonjs",
-    "outDir": "dist",
     "declaration": true,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,

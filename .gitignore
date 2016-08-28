@@ -19,6 +19,7 @@ pids
 build/Release
 *.d.ts
 src/**/*.js
+**/test/*.js
 
 
 # Editors

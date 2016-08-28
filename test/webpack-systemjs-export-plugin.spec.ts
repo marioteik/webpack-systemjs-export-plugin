@@ -5,7 +5,7 @@ import * as webpack from 'webpack';
 
 import WebpackSystemJSExportPlugin from '../src/webpack-systemjs-export-plugin';
 
-var config = require('../example/webpack.config.js');
+var config = require('./example/webpack.config.js');
 
 test('Able to load with SystemJS a chunk built with the plugin', t => {
   var c = Object.assign({}, config,
@@ -17,11 +17,12 @@ test('Able to load with SystemJS a chunk built with the plugin', t => {
       ]
     });
 
-  //webpack(c, (err, stats) => {
+  webpack(c, (err, stats) => {
 
-  //});
-
-  t.fail();
+    console.log(stats);
+    console.log(err);
+    t.fail();
+  });
 });
 
 test('External modules not found in built chunks', t => {

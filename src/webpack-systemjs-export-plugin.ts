@@ -93,13 +93,14 @@ export class WebpackSystemJSExportPlugin {
 	 * Validate the Types of the constructor config at runtime.
 	 */
 	validateTypes = (config) => {
-
+		
 		let err = (e) => { throw new Error('WebpackSystemJSExport Error: ' + e) };
 
 		let checkIfArrayOfType = (obj, eTypeCheck: (t) => boolean, varname: string, typename: string) => {
 			if (typeof obj !== 'undefined') {
 				if (!Array.isArray(obj))
 					err(`configuration \`${varname}\` must be of type ${typename}`);
+
 				for (var element of obj)
 					if (!eTypeCheck(element))
 						err(`configuration \`${varname}\` must be of type ${typename} on every element of array`);
@@ -130,7 +131,7 @@ export class WebpackSystemJSExportPlugin {
 		// register
 		checkIfArrayOfType(
 			config.register,
-			(type) => typeof type.name === 'number' && typeof type.alias === 'function',
+			(type) => typeof type.name === 'string' && typeof type.alias === 'function',
 			'register',
 			'{name: string, alaias: (chunk: string) => string}'
 		);
