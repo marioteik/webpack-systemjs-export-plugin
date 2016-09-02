@@ -13,12 +13,16 @@
 	<script>
 		setTimeout(() => {
 			// You're able to load Chunks like so:
+			console.log('Loading dyanmic.min.js!');
 			SystemJS.import('dist/dynamic.min.js')
-				.then(res => console.log(res));
+				.then(res => console.log(res))
+				.catch(res => console.error(res));
 
 			// You can also load from the vendor chunk's node_modules:
+			console.log('Loading lodash!');
 			SystemJS.import('lodash')
-				.then(res => console.log(res));
+				.then(res => console.log(res))
+				.catch(res => console.error(res));
 		}, 3000);
 	</script>
 </body>

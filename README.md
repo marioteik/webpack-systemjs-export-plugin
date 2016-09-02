@@ -52,7 +52,16 @@ let config = {
         'react-dom',
         'react-router'
       ],
-      alias: (chunk) => `myapp/${chunk}`,
+      register: [
+      {
+        name: 'main'
+        alias: 'myapp'
+      },
+      {
+        name: 'dynamic',
+        alias: n => 'myapp/' + n
+        }
+      ]
       bundleSystemJS: 'vendor'
     }),
     // ...
@@ -61,7 +70,7 @@ let config = {
 
 ```
 
-In this example, the module `'three'` will be bundled as `SystemJS.import('three').then(res => exports = res)`.
+In this example, the module `'three'` will be loaded from SystemJS rather than bundled.
 
 ## Configuration Options
 
@@ -78,7 +87,7 @@ interface Configuration {
   // Specify which chunks you want to wrap with SystemJS.register (defaults to none.)
   register?: {
     name : string,
-    alias: (chunk: string) => string
+    alias?: string | (chunk: string) => string
   }[],
 
   // Bundles SystemJS as a global dependency to the chunk of your choosing. (defaults to none.)
@@ -88,17 +97,15 @@ interface Configuration {
 
 ## Examples
 
-Check out the [example project in the test suite](/test) if you're still not sure what to do. ;)
+Check out the [example project in the test suite](/test/example) if you're still not sure what to do. ;)
 
 ### Roadmap
 
 - [x] Support bundling SystemJS.
-- [x] Support for specifying external systemjs modules. (we're kinda there...)
+- [x] Support for specifying external systemjs modules.
 - [ ] Support registering chunks.
-- [ ] Support exposing modules.
+- [x] Support exposing modules.
 
-[website-img]: docs/brand/cover.png
-[website-url]: https://alain.xyz
 [release-img]: https://img.shields.io/badge/release-2.1.0-4dbfcc.svg?style=flat-square
 [license-img]: http://img.shields.io/:license-apache-blue.svg?style=flat-square
 [license-url]: https://opensource.org/licenses/Apache-2.0

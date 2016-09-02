@@ -1,10 +1,7 @@
-import * as path from 'path';
-import * as fs from 'fs';
-import * as appRoot from 'app-root-path';
-import { ConcatSource } from 'webpack-sources';
-
-import SystemJSRegisterPublicModules from './public';
-import WebpackSystemRegister from './register';
+import { exposePublicModules } from './expose-public-modules';
+import { bundleSystemJS } from './bundle-systemjs';
+import { clearExternals } from './clear-externals';
+import { wrapRegisteredChunks } from './wrap-registered-chunks';
 
 /**
  * Fully integrate Webpack with SystemJS, export systemjs libraries, 
@@ -13,99 +10,32 @@ import WebpackSystemRegister from './register';
 export class WebpackSystemJSExportPlugin {
 
 	private config: Configuration;
-	private publicPlugin: SystemJSRegisterPublicModules;
-	private registerPlugin: WebpackSystemRegister;
 
 	constructor(config: Configuration = {}) {
-		this.config = this.validateTypes(config);
-
-		//@TODO - extract logic from his plugin to simplified module.
-		this.publicPlugin = new SystemJSRegisterPublicModules({});
-
-		this.registerPlugin = new WebpackSystemRegister({
-
-		})
+		this.config = this.validateConfigTypes(config);
 	}
 
-	apply = (compiler: WebpackCompiler) => {
+	apply(compiler: WebpackCompiler) {
 
-		this.clearExternals(this.config.externals, compiler);
+		// Remove external dependencies from bundle, 
+		// and load them from SystemJS instead.
+		clearExternals(this.config.externals, compiler);
 
-		this.exposePublicModules(this.config.public, compiler);
+		// Expose any public modules to SystemJS
+		exposePublicModules(this.config.public, compiler);
 
-		this.wrapRegisteredChunks(this.config.register, compiler);
+    // Wrap chunks with System.register to load them dynamically.
+		wrapRegisteredChunks(this.config.register, compiler);
 
-		this.bundleSystemJS(this.config.bundleSystemJS, compiler);
+		// Bundle SystemJS in a given chunk.
+		bundleSystemJS(this.config.bundleSystemJS, compiler);
 
-	}
-
-  /**
-	 * Clear the inner part of modules included in the compiler.externals, 
-	 * replace with SystemJS.import('three').then(res => exports = res)
-	*/
-	clearExternals = (externals: (string | RegExp)[] = [], compiler: WebpackCompiler) => {
-
-	}
-
-  /** 
-	 * Expose any public modules to SystemJS. 
-	 */
-	exposePublicModules = (publicModules: (string | RegExp)[] = [], compiler: WebpackCompiler) => {
-		this.publicPlugin.apply(compiler);
-	}
-
-	/**
-	 *  Wrap registered chunks with `SystemJS.register`
-	 */
-	wrapRegisteredChunks = (registry: { name: string, alias: (chunk: string) => string }[] = [], compiler: WebpackCompiler) => {
-		//this.registerPlugin.apply(compiler);
-	}
-
-	/**
-	 * Bundle SystemJS within a given Chunk as a global dependency.
-	 */
-	bundleSystemJS = (chunkName: string = '', compiler: WebpackCompiler) => {
-		if (!chunkName) return;
-
-		compiler.plugin('compilation', (compilation) => {
-
-			compilation.plugin("optimize-chunk-assets", (chunks, callback) => {
-				chunks.forEach(chunk => {
-
-					if (!(chunk.isInitial() && (chunk.name === chunkName))) {
-						return;
-					}
-
-					let file = chunk.files[0];
-					let production = '.src';
-
-					// Use the production version of system.js if you're in production mode.
-					if (process.env['NODE_ENV']) {
-						if (process.env['NODE_ENV'].match(/production/))
-							production = '-csp-production';
-					}
-
-					let pathToSystemJS = path.join(
-						appRoot.path,
-						'node_modules',
-						'systemjs',
-						'dist',
-						`system${production}.js`);
-
-					let systemjsString = fs.readFileSync(pathToSystemJS).toString();
-
-					compilation.assets[file] = new ConcatSource(compilation.assets[file], systemjsString);
-				});
-				callback();
-			});
-
-		});
 	}
 
 	/**
 	 * Validate the Types of the constructor config at runtime.
 	 */
-	validateTypes = (config) => {
+	validateConfigTypes = (config) => {
 
 		let err = (e) => { throw new TypeError('WebpackSystemJSExport: ' + e) };
 

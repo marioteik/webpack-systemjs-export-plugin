@@ -35,7 +35,7 @@ test('SystemJS is bundled with the correct chunk', async t => {
     .catch((err) => t.fail(err));
 });
 
-test('External modules not found in built chunks', t => {
+test('External modules not found in built chunks', async t => {
   var c = Object.assign({}, config,
     {
       plugins: [
@@ -77,7 +77,7 @@ test('Public `node_modules` accessable to SystemJS', async t => {
     .catch((err) => t.fail(err));
 });
 
-test('Custom chunk aliases accessable by SystemJS', t => {
+test('Custom chunk aliases loadable by SystemJS', async t => {
   var c = Object.assign({}, config,
     {
       plugins: [
@@ -89,5 +89,25 @@ test('Custom chunk aliases accessable by SystemJS', t => {
         })
       ]
     });
+
+  let wp = await new Promise<string>((res, rej) => {
+    webpack(c, (err, stats) => {
+      if (err)
+        rej(err.message);
+    })
+      .run((err, stats) => {
+        if (err)
+          t.fail(err.message);
+
+        // Run built code and see if lodash is accessable.
+        let dynamicBuildPath = path.join(config.output.path, 'dynamic.min.js');
+        SystemJS.import(dynamicBuildPath)
+          .then(m => (typeof m.default !== 'undefined') ? res('Bundled modules are accessable to SystemJS!') : rej('Failed to find default export!'))
+          .catch(err => rej(err.message))
+      });
+  })
+    .then((res) => t.pass(res))
+    .catch((err) => t.fail(err));
+
   t.fail();
 });
