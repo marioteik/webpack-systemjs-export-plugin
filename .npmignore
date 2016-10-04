@@ -3,13 +3,6 @@ src
 tsconfig.json
 .travis.yml
 .gitignore
-*.js
-*.ts
-*.tsx
 *.md
-*.d.ts
 .vscode
 webpack.*.js
-
-!webpack-systemjs-export-plugin.js
-!webpack-systemjs-export-plugin.d.ts
