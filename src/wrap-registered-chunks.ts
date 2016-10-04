@@ -9,7 +9,13 @@ import { WebpackCompiler } from './webpack-systemjs-export-plugin';
  *  Wrap registered chunks with `SystemJS.register`
  *  A fork of Joel Denning's Plugin.
  */
-export function wrapRegisteredChunks(registry: { name: string, alias: (chunk: string) => string }[] = [], compiler: WebpackCompiler) {
+export function wrapRegisteredChunks(registry: { name: string, alias?: (chunk: string) => string }[] = [], compiler: WebpackCompiler) {
+  
+  // @TODO - 
+  var externalDeps = [];
+  var options = {
+    registerName: ''
+  }
 
   var externalModuleFiles = [];
   var externalModules = [];
@@ -27,8 +33,8 @@ export function wrapRegisteredChunks(registry: { name: string, alias: (chunk: st
       if (!result) {
         return callback();
       }
-
-      if (options.systemjsDeps.find(dep => dep.test(result.request))) {
+  
+      if (externalDeps.find(dep => dep.test(result.request))) {
         const filename = `node_modules/__${toJsVarName(result.request)}`;
         if (externalModuleFiles.indexOf(filename) < 0) {
           externalModuleFiles.push(filename)
@@ -60,7 +66,7 @@ export function wrapRegisteredChunks(registry: { name: string, alias: (chunk: st
         return callback();
       }
 
-      if (options.systemjsDeps.find(dep => dep.test(result.request))) {
+      if (externalDeps.find(dep => dep.test(result.request))) {
         result.resource = path.resolve(process.cwd(), `__${toJsVarName(result.request)}`);
       }
 
@@ -69,11 +75,6 @@ export function wrapRegisteredChunks(registry: { name: string, alias: (chunk: st
   });
 
   compiler.plugin("compilation", compilation => {
-
-    // Can't override the __webpack_require__.p via plugin because of https://github.com/webpack/webpack/blob/1b459d91f56215a3c617373d456ad53f9a63fea3/lib/MainTemplate.js#L99
-    if (options.publicPath.useSystemJSLocateDir) {
-      compilation.mainTemplate.plugin('require-extensions', (source, chunk, hash) => source.replace(/__webpack_require__\.p = \".*\";/, '__webpack_require__.p = $__wsr__public__path;'));
-    }
 
     // http://stackoverflow.com/questions/35092183/webpack-plugin-how-can-i-modify-and-re-parse-a-module-after-compilation
     compilation.plugin('seal', () => {
