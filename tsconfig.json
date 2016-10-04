@@ -17,7 +17,8 @@
     "experimentalDecorators": true,
     "noEmitHelpers": false,
     "sourceMap": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "outDir": "dist"
   },
   "compileOnSave": false,
   "buildOnSave": false
