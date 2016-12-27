@@ -1,6 +1,9 @@
 # webpack-systemjs-export-plugin
 
-![Release][release-img] [![licence][license-img]][license-url] [![Dependency Status][david-img]][david-url] [![devDependency Status][david-dev-img]][david-dev-url]
+![Release][release-img]
+[![licence][license-img]][license-url]
+[![Dependency Status][david-img]][david-url]
+[![devDependency Status][david-dev-img]][david-dev-url]
 
 ```bash
 npm i webpack-systemjs-export-plugin --save

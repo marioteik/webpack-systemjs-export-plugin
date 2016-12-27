@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as appRoot from 'app-root-path';
-import { ConcatSource } from 'webpack-sources';
+import { ConcatSource, RawSource } from 'webpack-sources';
 
 import {WebpackCompiler} from './webpack-systemjs-export-plugin';
 
@@ -35,7 +35,7 @@ export function bundleSystemJS(chunkName: string = '', compiler: WebpackCompiler
 						'dist',
 						`system${production}.js`);
 
-					let systemjsString = fs.readFileSync(pathToSystemJS).toString(); //don't kill me pls
+					let systemjsString = new RawSource(fs.readFileSync(pathToSystemJS).toString()); //don't kill me pls
 
 					if (compilation.assets[file])
 						compilation.assets[file] = new ConcatSource(compilation.assets[file], systemjsString);

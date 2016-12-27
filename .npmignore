@@ -1,8 +1,10 @@
-test
+tests
+coverage
+docs
 src
-tsconfig.json
-.travis.yml
-.gitignore
-*.md
-.vscode
 webpack.*.js
+.travis.yml
+definitions.d.ts
+.vscode
+tsconfig.json
+license.md

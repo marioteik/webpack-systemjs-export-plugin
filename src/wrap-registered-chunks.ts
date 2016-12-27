@@ -8,13 +8,15 @@ import { WebpackCompiler } from './webpack-systemjs-export-plugin';
 /**
  *  Wrap registered chunks with `SystemJS.register`
  *  A fork of Joel Denning's Plugin.
+ *  https://github.com/CanopyTax/webpack-system-register
  */
 export function wrapRegisteredChunks(registry: { name: string, alias?: (chunk: string) => string }[] = [], compiler: WebpackCompiler) {
   
   // @TODO - 
   var externalDeps = [];
   var options = {
-    registerName: ''
+    registerName: '',
+    useSystemJSLocateDir: false,
   }
 
   var externalModuleFiles = [];
@@ -77,23 +79,26 @@ export function wrapRegisteredChunks(registry: { name: string, alias?: (chunk: s
   compiler.plugin("compilation", compilation => {
 
     // http://stackoverflow.com/questions/35092183/webpack-plugin-how-can-i-modify-and-re-parse-a-module-after-compilation
-    compilation.plugin('seal', () => {
-      compilation.modules.forEach(m => {
-        let isEntry = m.entry;
-        const entries = (compiler.options.entry || {});
-        for (const entryName in entries) {
-          isEntry = m.rawRequest.trim() === entries[entryName].trim();
-        }
-        if (isEntry && m._source) {
-          m._source._value += `\n$__register__main__exports(exports);`;
-        }
-      });
-    });
+		compilation.plugin('seal', () => {
+			compilation.modules.forEach(m => {
+				let isEntry = m.entryModule;
+				let entries = (compiler.options.entry || {});
+				if (typeof entries === 'string') {
+					entries = {main: entries};
+				}
+				for (let entryName in entries) {
+					isEntry = m.rawRequest === entries[entryName];
+				}
+				if (isEntry && m._source) {
+					m._source._value += `\n$__register__main__exports(exports);`;
+				}
+			});
+		});
 
     // Based on https://github.com/webpack/webpack/blob/ded70aef28af38d1deb2ac8ce1d4c7550779963f/lib/WebpackSystemRegister.js
     compilation.plugin("optimize-chunk-assets", (chunks, callback) => {
       chunks.forEach(chunk => {
-        if (!chunk.initial) {
+        if (!chunk.isInitial()) {
           return;
         }
 

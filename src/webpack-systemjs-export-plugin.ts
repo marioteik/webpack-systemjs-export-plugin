@@ -25,7 +25,7 @@ export class WebpackSystemJSExportPlugin {
 		exposePublicModules(this.config.public, compiler);
 
     // Wrap chunks with System.register to load them dynamically.
-		wrapRegisteredChunks(this.config.register, compiler);
+		//wrapRegisteredChunks(this.config.register, compiler);
 
 		// Bundle SystemJS in a given chunk.
 		bundleSystemJS(this.config.bundleSystemJS, compiler);
