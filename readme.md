@@ -118,7 +118,10 @@ Check out the [example project in the test suite](/test/example) if you're still
 [david-img]: https://david-dm.org/alaingalvan/webpack-systemjs-export-plugin.svg?style=flat-square
 [david-dev-url]: https://david-dm.org/alaingalvan/webpack-systemjs-export-plugin#info=devDependencies
 [david-dev-img]: https://david-dm.org/alaingalvan/webpack-systemjs-export-plugin/dev-status.svg?style=flat-square
-[travis-img]: https://api.travis-ci.org/alaingalvan/webpack-systemjs-export-plugin.svg?style=flat-square
+[travis-img]: https://img.shields.io/travis/alaingalvan/webpack-systemjs-export-plugin.svg?style=flat-square
 [travis-url]:https://travis-ci.org/alaingalvan/webpack-systemjs-export-plugin
+[codecov-img]:https://img.shields.io/codecov/c/github/alaingalvan/webpack-systemjs-export-plugin.svg?style=flat-square
+[codecov-url]: https://codecov.io/gh/alaingalvan/webpack-systemjs-export-plugin
 [npm-img]: https://img.shields.io/npm/v/webpack-systemjs-export-plugin.svg?style=flat-square
 [npm-url]: http://npm.im/webpack-systemjs-export-plugin
+[npm-download-img]: https://img.shields.io/npm/dm/webpack-systemjs-export-plugin.svg?style=flat-square
