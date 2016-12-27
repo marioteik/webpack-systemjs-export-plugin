@@ -5,6 +5,7 @@ import { WebpackCompiler } from './webpack-systemjs-export-plugin';
 /**
  * exposes a set of public modules within a given webpack compiler.
  * A fork of Guy Bedford's plugin.
+ * https://github.com/guybedford/systemjs-webpack-plugin
  */
 export function exposePublicModules(publicModules: (string | RegExp)[] = [], compiler: WebpackCompiler) {
 

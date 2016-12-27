@@ -88,14 +88,14 @@ export class WebpackSystemJSExportPlugin {
 	}
 }
 
-export interface WebpackCompiler {
+export type WebpackCompiler = {
 	outputPath: string,
 	options: any,
 	plugin: (p: string, cb: (...a) => void) => void,
 
 }
 
-export interface Configuration {
+export type Configuration = {
 
 	// Any external modules that will not be bundled by Webpack (defaults to none.)
 	externals?: (string | RegExp)[],

@@ -10,14 +10,16 @@ var config = require('./example/webpack.config.js');
 
 test('SystemJS is bundled with the correct chunk', async t => {
 
-  let c = Object.assign({}, config, {
+  let c = {
+    ...config,
     plugins: [
       new WebpackSystemJSExportPlugin({
         bundleSystemJS: 'vendor'
       })]
-  });
+  };
 
   let wp = await new Promise<string>((res, rej) => {
+
     webpack(c, (err, stats) => {
       if (err)
         rej(err.message);
@@ -33,6 +35,7 @@ test('SystemJS is bundled with the correct chunk', async t => {
   })
     .then((res) => t.pass(res))
     .catch((err) => t.fail(err));
+
 });
 
 
@@ -50,14 +53,15 @@ test('External modules not found in built chunks', async t => {
 */
 
 test('Public `node_modules` accessable to SystemJS', async t => {
-  var c = Object.assign({}, config,
-    {
-      plugins: [
-        new WebpackSystemJSExportPlugin({
-          public: ['lodash']
-        })
-      ]
-    });
+  
+  let c = {
+    ...config,
+    plugins: [
+      new WebpackSystemJSExportPlugin({
+        public: ['lodash']
+      })
+    ]
+  };
 
   let wp = await new Promise<string>((res, rej) => {
     webpack(c, (err, stats) => {
@@ -70,10 +74,10 @@ test('Public `node_modules` accessable to SystemJS', async t => {
 
         // Run built code and see if lodash is accessable.
         let vendorBuildPath = path.join(config.output.path, 'vendor.min.js');
-        require(vendorBuildPath)
+        require(vendorBuildPath);
         SystemJS.import('lodash')
           .then(_ => res('Bundled modules are accessable to SystemJS!'))
-          .catch(err => rej(err.message))
+          .catch(err => rej(err.message));
       });
   })
     .then((res) => t.pass(res))

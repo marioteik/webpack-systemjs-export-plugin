@@ -7,13 +7,13 @@
 [![Dependency Status][david-img]][david-url]
 [![devDependency Status][david-dev-img]][david-dev-url]
 
+A Webpack 2 plugin that fully integrates Webpack with SystemJS.
+
+## Install
+
 ```bash
-npm i http://github.com/alaingalvan/webpack-systemjs-export-plugin -S
+npm i webpack-systemjs-export-plugin -S
 ```
-
-> Note: **Under Construction!** A Fork of @joeldenning's [Webpack System Register Plugin](https://www.npmjs.com/package/webpack-system-register) and @guybedford's [SystemJS Webpack Plugin](https://github.com/guybedford/systemjs-webpack-plugin).
-
-Fully integrates Webpack with SystemJS, export systemjs libraries, expose modules, dynamically load chunks with systemjs, or load modules in your webpack build from SystemJS.
 
 ## Features
 
@@ -23,66 +23,19 @@ Fully integrates Webpack with SystemJS, export systemjs libraries, expose module
 
 - Ignore modules that will be loadable on runtime.
 
-- [TypeScript](https://blogs.msdn.microsoft.com/typescript/2016/07/11/announcing-typescript-2-0-beta/) and [Webpack 2.1](https://github.com/webpack/webpack) Support!
+- [TypeScript 2](http://www.typescriptlang.org/) and [Webpack 2](https://webpack.js.org/) Support!
 
-- Unit Tests powered by [Ava](https://github.com/avajs/ava).
+- Unit/Coverage Tests powered by [Ava](https://github.com/avajs/ava).
 
-- Load from SystemJS directly from your build.
+- Bundle SystemJS directly into a chunk you're exporting. 
 
-## Quick Start
+## Usage
 
-From your entry module, expose whatever you would like (just like when you're building a library):
-
-```js
-export * from './components';
-export * from './actions';
-export * from './utils';
-```
-
-In webpack, just add a new instance of the plugin to your `plugins` array.:
-
-```js
-// webpack.config.js
-const WebpackSystemJSExportPlugin = require('webpack-systemjs-export-plugin');
-
-let config = {
-  //...
-  plugins: [
-    new WebpackSystemJSExportPlugin({
-      externals: [
-        'three'
-      ],
-      public: [
-        'react',
-        'react-dom',
-        'react-router'
-      ],
-      register: [
-      {
-        name: 'main'
-        alias: 'myapp'
-      },
-      {
-        name: 'dynamic',
-        alias: n => 'myapp/' + n
-        }
-      ]
-      bundleSystemJS: 'vendor'
-    }),
-    // ...
-  ]
-}
-
-```
-
-In this example, the module `'three'` will be loaded from SystemJS rather than bundled.
-
-## Configuration Options
-
-To configure the plugin pass an object of the following type to the constructor:
+Simply include the default export of the module into your webpack plugins, and configure it with an object of this type:
 
 ```ts
-interface Configuration {
+type Configuration = {
+
   // Any external modules that will not be bundled by Webpack (defaults to none.)
   externals?: (string | RegExp)[],
 
@@ -97,19 +50,70 @@ interface Configuration {
 
   // Bundles SystemJS as a global dependency to the chunk of your choosing. (defaults to none.)
   bundleSystemJS?: string
+
 }
 ```
 
-## Examples
+From your entry modules, expose whatever you would like:
 
-Check out the [example project in the test suite](/test/example) if you're still not sure what to do. ;)
+```js
+export * from './components';
+export * from './actions';
+export * from './utils';
+```
 
-### Roadmap
+In webpack, just add a new instance of the plugin to your `plugins` array:
 
-- [x] Support bundling SystemJS.
-- [x] Support for specifying external systemjs modules.
-- [ ] Support registering chunks.
-- [x] Support exposing modules.
+```js
+// webpack.config.js
+const WebpackSystemJSExportPlugin = require('webpack-systemjs-export-plugin');
+
+let config = {
+
+  entry: {
+    main: './main',
+    vendor: [
+      'lodash'
+    ],
+    dynamic: './dynamic'
+  },
+
+  //...
+
+  plugins: [
+    new WebpackSystemJSExportPlugin({
+
+      // The following dependencies are loaded from SystemJS
+      externals: [],
+
+      // Expose the following node_modules
+      public: [
+        'react',
+        'react-dom',
+        'react-router'
+      ],
+
+      // Expose following entry points to SystemJS
+      register: [
+        {
+          // Entry Point
+          name: 'main',
+          // Module Name
+          alias: 'myapp'
+        }
+      ],
+
+      // Include SystemJS in the following entry point
+      bundleSystemJS: 'vendor'
+    })
+    // ...
+  ]
+};
+
+```
+
+Check out the [example project in the test suite](/test/example) if you're still not sure what to do.
+
 
 [release-img]: https://img.shields.io/badge/release-2.1.0-4dbfcc.svg?style=flat-square
 [license-img]: http://img.shields.io/:license-apache-blue.svg?style=flat-square
