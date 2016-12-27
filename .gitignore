@@ -11,6 +11,9 @@ pids
 *.pid
 *.seed
 *.ssh
+coverage
+.nyc_output
+
 
 # node-waf configuration
 .lock-wscript

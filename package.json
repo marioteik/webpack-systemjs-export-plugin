@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "description": "Fully integrates Webpack with SystemJS, export systemjs libraries, expose modules, dynamically load chunks with systemjs, etc.",
   "main": "src/webpack-systemjs-export-plugin.js",
-  "typings": "./webpack-systemjs-export-plugin.d.ts",
+  "typings": "./src/webpack-systemjs-export-plugin.d.ts",
   "scripts": {
     "declarations": "tsc src/webpack-systemjs-export-plugin.ts -d",
     "build": "tsc",
