@@ -2,11 +2,13 @@
 
 ![Release][release-img]
 [![licence][license-img]][license-url]
+[![Unit Tests][travis-img]][travis-url]
+[![Coverage Tests][codecov-img]][codecov-url]
 [![Dependency Status][david-img]][david-url]
 [![devDependency Status][david-dev-img]][david-dev-url]
 
 ```bash
-npm i webpack-systemjs-export-plugin --save
+npm i http://github.com/alaingalvan/webpack-systemjs-export-plugin -S
 ```
 
 > Note: **Under Construction!** A Fork of @joeldenning's [Webpack System Register Plugin](https://www.npmjs.com/package/webpack-system-register) and @guybedford's [SystemJS Webpack Plugin](https://github.com/guybedford/systemjs-webpack-plugin).
@@ -21,7 +23,7 @@ Fully integrates Webpack with SystemJS, export systemjs libraries, expose module
 
 - Ignore modules that will be loadable on runtime.
 
-- [TypeScript 2.0](https://blogs.msdn.microsoft.com/typescript/2016/07/11/announcing-typescript-2-0-beta/) and [Webpack 2.1](https://github.com/webpack/webpack) Support!
+- [TypeScript](https://blogs.msdn.microsoft.com/typescript/2016/07/11/announcing-typescript-2-0-beta/) and [Webpack 2.1](https://github.com/webpack/webpack) Support!
 
 - Unit Tests powered by [Ava](https://github.com/avajs/ava).
 
