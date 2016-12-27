@@ -1,7 +1,8 @@
 tests
 coverage
 docs
-src
+*.ts
+!webpack-systemjs-export-plugin.d.ts
 webpack.*.js
 .travis.yml
 definitions.d.ts
